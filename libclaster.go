@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// TODO:	Remove port hardcoding -- get from SRV record
 func connect(domain string) (net.Conn, error) {
 	conn, err := net.Dial("tcp", domain+":5222")
 	if err != nil {
