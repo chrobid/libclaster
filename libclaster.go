@@ -6,6 +6,13 @@ import (
 	"strings"
 )
 
+type Client struct {
+	conn   net.Conn
+	jid    string
+	domain string
+	port   string
+}
+
 // TODO:	Remove port hardcoding -- get from SRV record
 func connect(domain string) (net.Conn, error) {
 	conn, err := net.Dial("tcp", domain+":5222")
@@ -16,12 +23,12 @@ func connect(domain string) (net.Conn, error) {
 }
 
 // Status returns the current server connection status
-func Status() {
+func ClientStatus() {
 
 }
 
 // NewClient connects to an XMPP server
-func NewClient(jid string) (net.Conn, error) {
+func NewClient(jid string, password string) (*Client, error) {
 	if strings.Count(jid, "@") != 1 {
 		err := errors.New("Invalid JID")
 		return nil, err
